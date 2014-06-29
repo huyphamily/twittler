@@ -8,8 +8,13 @@
     <script>
 
       $(document).ready(function(){
+
         var $body = $('body');
         $body.html('');
+
+        $('<h1></h1>').text("Twittler").appendTo($body);
+        $('<button class="refresh">Refresh</button>').appendTo($body);
+        $('<ul class="Tweets">').appendTo($body);
 
         var oldTweet = 0;
 
@@ -20,18 +25,21 @@
            var tweet = streams.home[index];
            var $tweet = $('<div></div>');
            $tweet.text(tweet.created_at + '@' + tweet.user + ': ' + tweet.message);
-           $tweet.appendTo($body);
+           $tweet.prependTo(".Tweets");
            index -= 1;
            oldTweet ++;
           }
-          setTimeout( function() {
-            newTweet();
-          }, 1000);
+          
         }
         newTweet();
+
+        $('button').on('click', function() {
+          newTweet();
+        });
 
       });
 
     </script>
+
   </body>
 </html>
