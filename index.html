@@ -17,15 +17,15 @@
         $('<button class="refresh">Refresh</button>').appendTo($body);
         //creating filter button for all users currently following
         for(var i = 0; i < users.length; i++) {
-          $('<button id='+users[i]+'>'+users[i]+'</button>').appendTo($body);
-          //filter action
+          $('<button id='+users[i]+' data-user='+users[i]+'>'+users[i]+'</button>').appendTo($body);
           $('#'+users[i]).on('click', function() {
-            $('li.msg').hide();
-            $('.'+users[i]).show();
-          });
+          var thisuser = $(this).data('user');
+          $('.msg').hide();
+          $('.'+thisuser).show();
+        });
         };
 
-        $('<button class="reveal">Reveal</button>').appendTo($body);
+        $('<button class="reveal">Reveal All</button>').appendTo($body);
         $('.reveal').on('click', function() {
           $('li').show();
         });
@@ -41,7 +41,7 @@
           var index = streams.home.length - 1;
           while(index >= oldTweet){
            var tweet = streams.home[index];
-           var $user = $('<li class="msg '+tweet.user+'"></li>');
+           var $user = $('<li class="msg '+tweet.user+'""></li>');
            var $tweet = $('<div></div>');
            $user.text(tweet.created_at + '@' + tweet.user + ":");
            $tweet.text(tweet.message);
@@ -58,7 +58,6 @@
         $('.refresh').on('click', function() {
           newTweet();
         });
-        //filter for the users
 
 
       });
